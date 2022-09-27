@@ -5,12 +5,14 @@ import numpy as np
 def lotto():
     i = 0
     a = np.arange(1,46)
+    zz = []
     while i < 6:
-        zz = random.randint(a[0], a[44-i])
-        a[zz-1], a[44 - i] = a[44 - i], a[zz-1]
+        randomz = random.randint(a[0], a[44-i])
+        zz.append(randomz)
+        a[randomz-1], a[44 - i] = a[44 - i], a[randomz-1]
         i = i + 1
 
-        return zz
+    return zz
 
 
 #statistik mit dicts
