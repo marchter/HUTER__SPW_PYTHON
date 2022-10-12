@@ -9,7 +9,6 @@ for i in range(52):
 
 
 def color(random_cards):
-
     cards = []
     for i in range(5):
         cards.append(random_cards[i] // 13)
@@ -43,51 +42,63 @@ def repetition(random_cards):
     return {item: random_cards.count(item) for item in random_cards}
 
 
-def paar(random_cards_symbols):
-    if 2 in repetition(random_cards_symbols).values():
-        print("paar")
+def paar(random_cards):
+    if 2 in repetition(symbols_of_5(random_cards)).values():
+        return ("paar")
 
 
-def drilling(random_cards_symbols):
-    if 3 in repetition(random_cards_symbols).values():
-        print("drilling")
+def drilling(random_cards):
+    if 3 in repetition(symbols_of_5(random_cards)).values():
+        return ("drilling")
 
 
-
-def straße(random_cards_symbols):
-    sorted_cards = sorted(random_cards_symbols)
-    counter=0
+def straße(random_cards):
+    sorted_cards = sorted(symbols_of_5(random_cards))
+    counter = 0
     for index in range(4):
-        if sorted_cards[index]+1 == sorted_cards[index + 1]:
-            counter=counter+1
+        if sorted_cards[index] + 1 == sorted_cards[index + 1]:
+            counter = counter + 1
 
     if counter == 4:
-        print("strße")
+        return ("straße")
+
 
 def flush(random_cards):
     if 5 in repetition(color(random_cards)).values():
-        print("flush")
+        return ("flush")
 
 
-def full_house(random_cards_symbols):
-    if 3 in repetition(random_cards_symbols).values() and 2 in repetition(random_cards_symbols).values():
-        print("full_house")
+def full_house(random_cards):
+    if 3 in repetition(symbols_of_5(random_cards)).values() and 2 in repetition(symbols_of_5(random_cards)).values():
+        return ("full_house")
 
-def vierling(random_cards_symbols):
-    if 4 in repetition(random_cards_symbols).values():
-        print("vierling")
+
+def vierling(random_cards):
+    if 4 in repetition(symbols_of_5(random_cards)).values():
+        return ("vierling")
+
 
 def straight_flush(random_cards):
     sorted_cards = sorted(symbols_of_5(random_cards))
-    counter=0
+    counter = 0
     for index in range(4):
-        if sorted_cards[index]+1 == sorted_cards[index + 1]:
-            counter=counter+1
+        if sorted_cards[index] + 1 == sorted_cards[index + 1]:
+            counter = counter + 1
 
     if counter == 4 and 5 in repetition(color(random_cards)).values():
         print("straight_flush")
 
 
+def check_cards():
+    pass
+
+def statistik():
+    dict = {"paar", "drilling", "straße", "flush", "full_house", "vierling", "straight_flush"}
+    using_cards=five_cards()
+    for i in range(100000):
+        dict[i] == paar(using_cards)
+
+    return dict
 
 testcards = five_cards()
 print("Karten: " + "-" * 50)
@@ -97,11 +108,14 @@ print(symbols_of_5(testcards))
 print("Anzahl der Symbole: " + "-" * 38)
 print(repetition(symbols_of_5(testcards)))
 print("Kombinationen: " + "-" * 43)
-paar(symbols_of_5(testcards))
-drilling(symbols_of_5(testcards))
-straße(symbols_of_5(testcards))
-flush(testcards)
-full_house(symbols_of_5(testcards))
-vierling(symbols_of_5(testcards))
-straight_flush(testcards)
+print(paar(testcards))
+print(drilling(testcards))
+print(straße(testcards))
+print(flush(testcards))
+print(full_house(testcards))
+print(vierling(testcards))
+print(straight_flush(testcards))
 print("Statistik: " + "-" * 47)
+
+
+print(statistik())
