@@ -9,7 +9,7 @@ for i in range(52):
 
 
 def color(i):
-    return cards[i]
+    return cards[i]%4
 
-print(color(50))
-
+if color(1) == 1:
+    print()
