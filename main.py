@@ -9,7 +9,6 @@ for i in range(52):
 
 
 
-
 def color(i):
     return cards[i]
 
