@@ -8,8 +8,9 @@ def lotto():
     zz = []
     while i < 6:
         randomz = random.randint(a[0], a[44-i])
-        zz.append(randomz)
         a[randomz-1], a[44 - i] = a[44 - i], a[randomz-1]
+        zz.append(a[44-i])
+
         i = i + 1
 
     return zz
