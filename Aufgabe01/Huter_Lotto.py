@@ -26,5 +26,4 @@ def dict_lotto():
 
     return dict
 
-
 print("Lottoziehung: " + str(lotto()) + "\nStatistik: "+ str(dict_lotto()))
