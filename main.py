@@ -8,6 +8,7 @@ for i in range(52):
     cards.append(i)
 
 
+
 def color(i):
     return cards[i]
 
