@@ -44,12 +44,12 @@ def repetition(random_cards):
 
 def paar(random_cards):
     if 2 in repetition(symbols_of_5(random_cards)).values():
-        return ("paar")
+        return (True)
 
 
 def drilling(random_cards):
     if 3 in repetition(symbols_of_5(random_cards)).values():
-        return ("drilling")
+        return (True)
 
 
 def straße(random_cards):
@@ -60,22 +60,22 @@ def straße(random_cards):
             counter = counter + 1
 
     if counter == 4:
-        return ("straße")
+        return (True)
 
 
 def flush(random_cards):
     if 5 in repetition(color(random_cards)).values():
-        return ("flush")
+        return (True)
 
 
 def full_house(random_cards):
     if 3 in repetition(symbols_of_5(random_cards)).values() and 2 in repetition(symbols_of_5(random_cards)).values():
-        return ("full_house")
+        return (True)
 
 
 def vierling(random_cards):
     if 4 in repetition(symbols_of_5(random_cards)).values():
-        return ("vierling")
+        return (True)
 
 
 def straight_flush(random_cards):
@@ -86,19 +86,45 @@ def straight_flush(random_cards):
             counter = counter + 1
 
     if counter == 4 and 5 in repetition(color(random_cards)).values():
-        print("straight_flush")
+        return (True)
 
 
-def check_cards():
-    pass
+def highest(using_cards):
+    # problem no mit höherer kombination
+    highestnr = 0
+    if paar(using_cards):
+        highestnr = 1
+    elif drilling(using_cards):
+        highestnr = 2
+    elif straße(using_cards):
+        highestnr = 3
+    elif flush(using_cards):
+        highestnr = 4
+    elif full_house(using_cards):
+        highestnr = 5
+    elif vierling(using_cards):
+        highestnr = 6
+    elif straight_flush(using_cards):
+        highestnr = 7
+
+    return highestnr
+
 
 def statistik():
-    dict = {"paar", "drilling", "straße", "flush", "full_house", "vierling", "straight_flush"}
-    using_cards=five_cards()
+    dict = {}
+    for i in range(0,7):
+        dict[i]=i
     for i in range(100000):
-        dict[i] == paar(using_cards)
-
+        using_cards = five_cards()
+        dict[highest(using_cards)] += 1
     return dict
+
+def statistik_prozent(dict):
+    print(str(statistik()))
+    print("Statistik in %: " + "-" * 47)
+    for i in dict.values():
+        print(str((i*100)/100000)+"%")
+
 
 testcards = five_cards()
 print("Karten: " + "-" * 50)
@@ -115,7 +141,7 @@ print(flush(testcards))
 print(full_house(testcards))
 print(vierling(testcards))
 print(straight_flush(testcards))
+print("Highest: " + "-" * 50)
+print(highest(testcards))
 print("Statistik: " + "-" * 47)
-
-
-print(statistik())
+print(statistik_prozent(statistik()))
