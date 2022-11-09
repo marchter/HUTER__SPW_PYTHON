@@ -1,7 +1,6 @@
 import numpy as np
 import random
 
-global cards
 cards = []
 
 for i in range(52):
@@ -14,10 +13,11 @@ def color(random_cards):
         cards.append(random_cards[i] // 13)
     return cards
 
-    # 0 = herz
+    # 0=herz
     # 1=karo
     # 2=kreuz
     # 3=pik
+
 
 
 def symbols_of_5(random_cards):
@@ -114,7 +114,7 @@ def statistik():
     dict = {}
     for i in range(0,7):
         dict[i]=i
-    for i in range(100000):
+    for i in range(1000000):
         using_cards = five_cards()
         dict[highest(using_cards)] += 1
     return dict
@@ -123,25 +123,31 @@ def statistik_prozent(dict):
     print(str(statistik()))
     print("Statistik in %: " + "-" * 47)
     for i in dict.values():
-        print(str((i*100)/100000)+"%")
+        print(str((i*100)/1000000)+"%")
+
+def main():
+    testcards = five_cards()
+    print("Karten: " + "-" * 50)
+    print(testcards)
+    print("Symbole: " + "-" * 49)
+    print(symbols_of_5(testcards))
+    print("Anzahl der Symbole: " + "-" * 38)
+    print(repetition(symbols_of_5(testcards)))
+    print("Kombinationen: " + "-" * 43)
+    print(paar(testcards))
+    print(drilling(testcards))
+    print(straße(testcards))
+    print(flush(testcards))
+    print(full_house(testcards))
+    print(vierling(testcards))
+    print(straight_flush(testcards))
+    print("Highest: " + "-" * 50)
+    print(highest(testcards))
+    print("Statistik: " + "-" * 47)
+    print(statistik_prozent(statistik()))
 
 
-testcards = five_cards()
-print("Karten: " + "-" * 50)
-print(testcards)
-print("Symbole: " + "-" * 49)
-print(symbols_of_5(testcards))
-print("Anzahl der Symbole: " + "-" * 38)
-print(repetition(symbols_of_5(testcards)))
-print("Kombinationen: " + "-" * 43)
-print(paar(testcards))
-print(drilling(testcards))
-print(straße(testcards))
-print(flush(testcards))
-print(full_house(testcards))
-print(vierling(testcards))
-print(straight_flush(testcards))
-print("Highest: " + "-" * 50)
-print(highest(testcards))
-print("Statistik: " + "-" * 47)
-print(statistik_prozent(statistik()))
+if __name__ == "__main__":
+    main()
+
+
