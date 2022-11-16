@@ -49,6 +49,17 @@ def drilling(random_cards):
     return 3 in repetition(symbols_of_5(random_cards)).values()
 
 
+def twopair(random_cards):
+    cnt = 0
+    for i in repetition(symbols_of_5(random_cards)).values():
+        if i == 2:
+            cnt += 1
+        if i == 4:
+            cnt = 2
+
+    return cnt == 2
+
+
 def straße(random_cards):
     sorted_cards = sorted(symbols_of_5(random_cards))
     counter = 0
@@ -85,18 +96,20 @@ def highest(using_cards):
     highestnr = 0
     if paar(using_cards):
         highestnr = 1
-    elif drilling(using_cards):
+    elif twopair(using_cards):
         highestnr = 2
-    elif straße(using_cards):
+    elif drilling(using_cards):
         highestnr = 3
-    elif flush(using_cards):
+    elif straße(using_cards):
         highestnr = 4
-    elif full_house(using_cards):
+    elif flush(using_cards):
         highestnr = 5
-    elif vierling(using_cards):
+    elif full_house(using_cards):
         highestnr = 6
-    elif straight_flush(using_cards):
+    elif vierling(using_cards):
         highestnr = 7
+    elif straight_flush(using_cards):
+        highestnr = 8
 
     return highestnr
 
@@ -105,7 +118,7 @@ def statistik():
     dict = {}
     for i in range(0, 8):
         dict[i] = i
-    for i in range(1000000):
+    for i in range(100000):
         using_cards = five_cards()
         dict[highest(using_cards)] += 1
         # breakpoint()
@@ -116,7 +129,7 @@ def statistik_prozent(dict):
     print(str(statistik()))
     print("Statistik in %: " + "-" * 47)
     for i in dict.values():
-        print(str((i * 100) / 1000000) + "%")
+        print(str((i * 100) / 100000) + "%")
 
 
 def main():
@@ -137,6 +150,8 @@ def main():
     print(straight_flush(testcards))
     print("Highest: " + "-" * 50)
     print(highest(testcards))
+    print(twopair(testcards))
+
     print("Statistik: " + "-" * 47)
     print(statistik_prozent(statistik()))
 
