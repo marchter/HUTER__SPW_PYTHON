@@ -16,7 +16,7 @@ def getWinner(p1, p2):
 
     if p1 == p2: return 5
     if (p1 + 1) % 4 == p2: return p2
-    if (p1 + 3) % 4 == 2: return p2
+    if (p1 + 3) % 4 == p2: return p2
     return p1
 
 def pvp():
