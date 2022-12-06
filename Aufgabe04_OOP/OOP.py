@@ -3,21 +3,25 @@ class Person:
         self.name = name
         self.gender = gender
 
+
 class Employee(Person):
     def __init__(self, name, gender, department):
         super().__init__(name, gender)
         self.department = department
+
 
 class Manager(Person):
     def __init__(self, name, gender, department):
         super().__init__(name, gender)
         self.department = department
 
+
 class Department:
     def __init__(self, name):
         self.name = name
         self.employees = []
         self.manager = None
+
 
 class Firma:
     def __init__(self):
@@ -54,51 +58,55 @@ class Firma:
         female = len([p for p in self.employees if p.gender == 'female'])
         return {'male': male, 'female': female}
 
-firma = Firma()
 
-# Instantiiere Personen
-p1 = firma.instanciate('Max', 'male')
-p2 = firma.instanciate('Julia', 'female')
-p3 = firma.instanciate('John', 'male')
+def main():
+    firma = Firma()
 
-# Instantiiere Abteilungen
-d1 = Department('Marketing')
-d2 = Department('Entwicklung')
+    # Instantiiere Personen
+    p1 = firma.instanciate('Max', 'male')
+    p2 = firma.instanciate('Julia', 'female')
+    p3 = firma.instanciate('John', 'male')
 
-# Instantiiere Mitarbeiter
-e1 = firma.instanciate('Jenny', 'female', d1)
-e2 = firma.instanciate('Frank', 'male', d2)
-e3 = firma.instanciate('Huter', 'male', d2)
+    # Instantiiere Abteilungen
+    d1 = Department('Marketing')
+    d2 = Department('Entwicklung')
 
-# Instantiiere Abteilungsleiter
-m1 = Manager('Hans', 'male', d1)
+    # Instantiiere Mitarbeiter
+    e1 = firma.instanciate('Jenny', 'female', d1)
+    e2 = firma.instanciate('Frank', 'male', d2)
+    e3 = firma.instanciate('Huter', 'male', d2)
 
-# Füge Abteilung zur Firma hinzu
-firma.departments.append(d1)
-firma.departments.append(d2)
-firma.departments.append(d2)
+    # Instantiiere Abteilungsleiter
+    m1 = Manager('Hans', 'male', d1)
 
-# Füge Abteilungsleiter zur Firma hinzu
-firma.managers.append(m1)
+    # Füge Abteilung zur Firma hinzu
+    firma.departments.append(d1)
+    firma.departments.append(d2)
+    firma.departments.append(d2)
 
-# Füge Mitarbeiter zu Abteilung hinzu
-d1.employees.append(e1)
-d2.employees.append(e2)
-d2.employees.append(e3)
+    # Füge Abteilungsleiter zur Firma hinzu
+    firma.managers.append(m1)
+
+    # Füge Mitarbeiter zu Abteilung hinzu
+    d1.employees.append(e1)
+    d2.employees.append(e2)
+    d2.employees.append(e3)
+
+    # Füge Abteilungsleiter zu Abteilung hinzu
+    d1.manager = m1
+
+    # Ausgabe
+    print('Anzahl der Mitarbeiter: ', firma.get_employee_count())
+    print('Anzahl der Abteilungsleiter: ', firma.get_manager_count())
+    print('Anzahl der Abteilungen: ', firma.get_department_count())
+
+    biggest_department = firma.get_biggest_department()
+    if biggest_department is not None:
+        print('Größte Abteilung: ', biggest_department.name)
+
+    gender_percentage = firma.get_gender_percentage()
+    print('Männlich/Weiblich: ', gender_percentage['male'], '/', gender_percentage['female'])
 
 
-# Füge Abteilungsleiter zu Abteilung hinzu
-d1.manager = m1
-
-
-# Ausgabe
-print('Anzahl der Mitarbeiter: ', firma.get_employee_count())
-print('Anzahl der Abteilungsleiter: ', firma.get_manager_count())
-print('Anzahl der Abteilungen: ', firma.get_department_count())
-
-biggest_department = firma.get_biggest_department()
-if biggest_department is not None:
-    print('Größte Abteilung: ', biggest_department.name)
-
-gender_percentage = firma.get_gender_percentage()
-print('Männlich/Weiblich: ', gender_percentage['male'], '/', gender_percentage['female'])
+if __name__ == '__main__':
+    main()

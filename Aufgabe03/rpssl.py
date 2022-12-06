@@ -14,7 +14,7 @@ def getWinner(p1, p2):
     # überlegen mit wie sie verzweigt sind, also 1 mit die nächsten 2
     # 5 bedeutet dass niemand gewinnt, sonst wird der gewinner zurückgegeben.
     check_value = (p1 - p2) % 5
-    if p1 == p2: return -1
+    if p1 == p2: return 5
     if check_value == 1 or check_value == 2: return p1
     if check_value == 3 or check_value == 4: return p2
 
