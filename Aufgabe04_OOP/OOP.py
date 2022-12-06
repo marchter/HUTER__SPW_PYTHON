@@ -90,6 +90,7 @@ d2.employees.append(e3)
 # Füge Abteilungsleiter zu Abteilung hinzu
 d1.manager = m1
 
+
 # Ausgabe
 print('Anzahl der Mitarbeiter: ', firma.get_employee_count())
 print('Anzahl der Abteilungsleiter: ', firma.get_manager_count())
