@@ -1,4 +1,5 @@
 import random
+from flask import Flask
 
 symbols = ["Rock", "Paper", "Scissors", "Spock", "Lizard"]
 
@@ -32,13 +33,43 @@ def pvp():
     print("The Player that chose " + symbols[getWinner(getInput(), getInput())] + " won!")
 
 
-def pvc():
+def random_pvc():
     # mit print zwar schönere ausgabe aber für datenspeicherung nervig. :D
     # print("The Player that chose "+symbols[getWinner(getInput(),random.randint(0,4))]+" won!" )
     p = getInput()
     c = random.randint(0, len(symbols) - 1)
     pvc_write(p, c)
     return getWinner(p, c)
+
+
+def ai_pvc():
+    file = open("pvc_count.txt", "r")
+    dict = {}
+    for i in range(0, 5):
+        dict[i] = 0
+
+    for i in file.readlines():
+        if i.startswith("com won with"):
+            dict[int(i[13])] += 1
+
+    most_won = max(dict, key=dict.get)
+
+    p = getInput()
+    print("Com chose %s \nThe player that chose %s won" % (most_won, getWinner(p, most_won)))
+
+
+
+def impossible_pvc():
+    p = getInput()
+    c = (p + 1) % 5
+    print("Com chose %s \nThe player that chose %s won" % (c, getWinner(p, c)))
+
+
+def pvc_menu():
+    print("What type of player vs com do you want to play?\nWe offer:\n [0] Random\n [1] AI\n [2] impossible")
+    methods = [random_pvc, ai_pvc, impossible_pvc]
+    inp = input("Choose a option")
+    methods[int(inp)]()
 
 
 def pvc_write(p, c):
@@ -67,7 +98,7 @@ def symbols_count():
 
 
 def statistic():
-    print(symbols_count() + "\n\n Winners:" + pvc_count())
+    return symbols_count() + "\n\n Winners:" + pvc_count()
 
 
 def upload():
@@ -76,9 +107,19 @@ def upload():
 
 def menü():
     print("What do you want to play?\nWe offer:\n [0] pvp\n [1] pvc\n [2] statistic\n [3] upload data")
-    methods = [pvp, pvc, statistic, upload]
+    methods = [pvp, pvc_menu, statistic, upload]
     inp = input("Choose a option")
     methods[int(inp)]()
+
+
+
+app = Flask(__name__)
+@app.route('/')
+def get_file():
+    output = statistic()
+    output = output.replace('\n', '<br/>')
+    return output
+
 
 
 def main():
@@ -90,7 +131,8 @@ def main():
     # print(pvc_count())
     # pvc_count()
     # print(symbols_count())
-    menü()
+    #menü()
+    app.run()
 
 
 if __name__ == "__main__":
