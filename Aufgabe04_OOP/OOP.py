@@ -108,5 +108,6 @@ def main():
     print('Männlich/Weiblich: ', gender_percentage['male'], '/', gender_percentage['female'])
 
 
+
 if __name__ == '__main__':
     main()
