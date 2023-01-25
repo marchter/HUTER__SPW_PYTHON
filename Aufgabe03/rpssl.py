@@ -1,6 +1,10 @@
 import random
+
+import pandas as pd
 from flask import Flask
 import json
+import matplotlib.pyplot as plt
+
 
 symbols = ["Rock", "Paper", "Scissors", "Spock", "Lizard"]
 
@@ -97,36 +101,53 @@ def symbols_count():
         data.count("1")) + "\n Scissors: " + str(data.count("2")) + "\n Spock: " + str(
         data.count("3")) + "\n Lizard: " + str(data.count("4"))
 
-def tojson():
+def tojson(s):
     file1 = open("pvc_count.txt", "r")
     data = str(file1.read())
-    json = {"p": str(data.count("p won")), "c": str(data.count("com won")), "draw": str(data.count("draw")), "rock": str(data.count("0")), "paper": str(data.count("1")), "scissors": str(data.count("2")), "spock": str(data.count("3")), "lizard": str(data.count("4"))}
-    return json
+    if s == "symbols" or s == str(0):
+        return {"rock": (data.count("0")), "paper": (data.count("1")), "scissors": (data.count("2")), "spock": (data.count("3")), "lizard": (data.count("4"))}
+    elif s == "wins" or s == str(1):
+        return {"p": (data.count("p won")), "c": (data.count("com won")), "draw": (data.count("draw"))}
 
 def statistic():
     return symbols_count() + "\n\n Winners:" + pvc_count()
 
+def plot():
+    inp = input("Choose what to plot \n[0]: symbols\n[1]: wins  ")
+    dict = (tojson(inp))
+    plt.bar(dict.keys(), dict.values())
+    plt.show()
 
 def upload():
      app.run()
 
 
 def menü():
-    print("What do you want to play?\nWe offer:\n [0] pvp\n [1] pvc\n [2] statistic\n [3] upload data")
+    print("What do you want to play?\nWe offer:\n [0] pvp\n [1] pvc\n [2] statistic\n [3] plot\n [4] upload data")
     #mit liste die methoden beinhalet ohne (), diese werden dann aufgerufen, da nur die Addresse aufgerufen wird
-    methods = [pvp, pvc_menu, statistic, upload]
+    methods = [pvp, pvc_menu, statistic, plot, upload]
     inp = input("Choose a option")
     methods[int(inp)]()
 
 
 
 app = Flask(__name__)
+
 @app.route('/')
-def get_file():
-    #output = statistic().replace('\n', '<br/>')
-    output = tojson()
+def index():
+    output = "<a href=/symbols>symbols</a> <br/> <a href=/wins>wins</a>"
     return output
 
+@app.route('/symbols')
+def get_symbols():
+    #output = statistic().replace('\n', '<br/>')
+    output = tojson("symbols")
+    return output
+@app.route('/wins')
+def get_wins():
+    #output = statistic().replace('\n', '<br/>')
+    output = tojson("wins")
+    return output
 
 
 def main():
