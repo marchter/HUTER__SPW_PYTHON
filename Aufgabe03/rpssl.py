@@ -1,5 +1,6 @@
 import random
 from flask import Flask
+import json
 
 symbols = ["Rock", "Paper", "Scissors", "Spock", "Lizard"]
 
@@ -96,17 +97,23 @@ def symbols_count():
         data.count("1")) + "\n Scissors: " + str(data.count("2")) + "\n Spock: " + str(
         data.count("3")) + "\n Lizard: " + str(data.count("4"))
 
+def tojson():
+    file1 = open("pvc_count.txt", "r")
+    data = str(file1.read())
+    json = {"p": str(data.count("p won")), "c": str(data.count("com won")), "draw": str(data.count("draw")), "rock": str(data.count("0")), "paper": str(data.count("1")), "scissors": str(data.count("2")), "spock": str(data.count("3")), "lizard": str(data.count("4"))}
+    return json
 
 def statistic():
     return symbols_count() + "\n\n Winners:" + pvc_count()
 
 
 def upload():
-    pass
+     app.run()
 
 
 def menü():
     print("What do you want to play?\nWe offer:\n [0] pvp\n [1] pvc\n [2] statistic\n [3] upload data")
+    #mit liste die methoden beinhalet ohne (), diese werden dann aufgerufen, da nur die Addresse aufgerufen wird
     methods = [pvp, pvc_menu, statistic, upload]
     inp = input("Choose a option")
     methods[int(inp)]()
@@ -116,8 +123,8 @@ def menü():
 app = Flask(__name__)
 @app.route('/')
 def get_file():
-    output = statistic()
-    output = output.replace('\n', '<br/>')
+    #output = statistic().replace('\n', '<br/>')
+    output = tojson()
     return output
 
 
@@ -131,8 +138,7 @@ def main():
     # print(pvc_count())
     # pvc_count()
     # print(symbols_count())
-    #menü()
-    app.run()
+    menü()
 
 
 if __name__ == "__main__":
