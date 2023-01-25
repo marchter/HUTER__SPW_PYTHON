@@ -15,7 +15,6 @@ def getInput():
     user_input = input("Choose between 0 and 4 \n ")
     return int(user_input) if user_input.isdigit() and int(user_input) in range(len(symbols)) else "false input"
 
-
 def getWinner(p1, p2):
     # überlegen mit wie sie verzweigt sind, also 1 mit die nächsten 2
     # 5 bedeutet dass niemand gewinnt, sonst wird der gewinner zurückgegeben.
