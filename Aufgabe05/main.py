@@ -55,7 +55,7 @@ class List:
 
         self.length += 1
 
-    def add(self,data, index):
+    def add(self, data, index):
         e = Element(data)
         current = self.head
 
@@ -66,7 +66,6 @@ class List:
         current.next = e
 
         self.length += 1
-
 
     @do2Times
     def append2Times(self, data):
@@ -82,7 +81,6 @@ class List:
         for i in range(index):
             current = current.next
         return current
-
 
     # fragen ob speicher wirklich wieder freigeben wird
     def delFirst(self):
@@ -112,18 +110,23 @@ class List:
             current = current.next
         return None
 
-    def sortStringLength_BS(self):
-        current_i = self.head
-        current_j = self.head
+    def sort_int(self):
+        current = self.head
+        while current.next:
+            if current.data > current.next.data:
+                current.data, current.next.data = current.next.data, current.data
+                current = self.head
+            else:
+                current = current.next
 
-        while current_i is not None:
-            while current_j is not None:
-                if current_j.data < current_i.data:            #isinstance(current_i.data, int) and machen
-                    current_j.next = current_i.next
-                    current_i.next = current_j.next
-
-                current_j = current_j.next
-            current_i = current_i.next
+    def sort_string_length(self):
+        current = self.head
+        while current.next:
+            if len(current.data) > len(current.next.data):
+                current.data, current.next.data = current.next.data, current.data
+                current = self.head
+            else:
+                current = current.next
 
 
 def main():
@@ -144,12 +147,27 @@ def main():
 
     l1.delElement(0)
 
-    #l1.print()
-    #print(l1.length)
-    #print(l1.get(1).data)
-
-    l1.sortStringLength_BS()
     l1.print()
+    print("-" * 50)
+
+    print(l1.length)
+    print(l1.get(1).data)
+
+    print("-" * 50)
+
+    l1.sort_int()
+    l1.print()
+
+    print("-" * 50)
+
+    l2 = List()
+    l2.append("huter")
+    l2.append("hirsch")
+    l2.append("asdf")
+    l2.sort_string_length()
+    l2.print()
+
+    print("-" * 50)
 
     l1.clear()
 
