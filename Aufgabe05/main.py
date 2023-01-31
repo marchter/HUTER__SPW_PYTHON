@@ -112,6 +112,19 @@ class List:
             current = current.next
         return None
 
+    def sortStringLength_BS(self):
+        current_i = self.head
+        current_j = self.head
+
+        while current_i is not None:
+            while current_j is not None:
+                if current_j.data < current_i.data:            #isinstance(current_i.data, int) and machen
+                    current_j.next = current_i.next
+                    current_i.next = current_j.next
+
+                current_j = current_j.next
+            current_i = current_i.next
+
 
 def main():
     l1 = List()
@@ -131,9 +144,12 @@ def main():
 
     l1.delElement(0)
 
+    #l1.print()
+    #print(l1.length)
+    #print(l1.get(1).data)
+
+    l1.sortStringLength_BS()
     l1.print()
-    print(l1.length)
-    print(l1.get(1).data)
 
     l1.clear()
 
