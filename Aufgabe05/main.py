@@ -99,6 +99,8 @@ class List:
 
     def clear(self):
         self.head = None
+        self.tail = None
+
         self.length = 0
 
     # meh
