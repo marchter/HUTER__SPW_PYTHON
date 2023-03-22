@@ -156,7 +156,6 @@ def main():
     print(l1.get(1).data)
 
     print("-" * 50)
-
     l1.sort_int()
     l1.print()
 
