@@ -138,12 +138,15 @@ def main():
     l1.append(2)
     l1.append(3)
 
-    l1.addFront(0)
+    l1.addFront(2)
 
     l1.append2Times(4)
     l1.appendXTimes(3, 0)
 
-    l1.add(99, 3)
+    l1.add(99, 1)
+    l1.print()
+
+    print("-" * 50)
 
     l1.delFirst()
 
