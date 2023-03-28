@@ -82,7 +82,6 @@ class List:
             current = current.next
         return current
 
-    # fragen ob speicher wirklich wieder freigeben wird
     def delFirst(self):
         self.head = self.head.next
         self.length -= 1
