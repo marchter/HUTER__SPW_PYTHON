@@ -111,6 +111,8 @@ class List:
             current = current.next
         return None
 
+
+#ändern zu 2 for
     def sort_int(self):
         current = self.head
         while current.next:
