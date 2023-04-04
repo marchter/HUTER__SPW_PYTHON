@@ -114,22 +114,34 @@ class List:
 
 #ändern zu 2 for
     def sort_int(self):
-        current = self.head
-        while current.next:
-            if current.data > current.next.data:
-                current.data, current.next.data = current.next.data, current.data
-                current = self.head
-            else:
+        if self.head is None:
+            return
+
+        end = None
+        while end != self.head:
+            current = self.head
+            while current.next != end:
+                if current.data > current.next.data:
+                    temp = current.data
+                    current.data = current.next.data
+                    current.next.data = temp
                 current = current.next
+            end = current
 
     def sort_string_length(self):
-        current = self.head
-        while current.next:
-            if len(current.data) > len(current.next.data):
-                current.data, current.next.data = current.next.data, current.data
-                current = self.head
-            else:
+        if self.head is None:
+            return
+
+        end = None
+        while end != self.head:
+            current = self.head
+            while current.next != end:
+                if len(current.data) > len(current.next.data):
+                    temp = current.data
+                    current.data = current.next.data
+                    current.next.data = temp
                 current = current.next
+            end = current
 
 
 def main():
